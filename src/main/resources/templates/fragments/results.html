@@ -1,0 +1,78 @@
+<div th:fragment="resultsTable" id="res-table" th:remove="tag">
+	<div id="pippo" th:object="${employeeForm}">
+		<table
+			style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #ddd;">
+			<thead>
+				<tr style="background-color: #f2f2f2;">
+					<th
+						style="padding: 10px; border: 1px solid #ddd; text-align: left;">Name</th>
+					<th
+						style="padding: 10px; border: 1px solid #ddd; text-align: left;">Department</th>
+					<th
+						style="padding: 10px; border: 1px solid #ddd; text-align: right;">Salary</th>
+					<th
+						style="padding: 10px; border: 1px solid #ddd; text-align: right;">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr style="background-color: #fff;"
+					th:data-id="${employee.employeeId}">
+					<td style="padding: 10px; border: 1px solid #ddd;"
+						th:text="${employee.firstName}"></td>
+					<td style="padding: 10px; border: 1px solid #ddd;"
+						th:text="${employee.departmentName}"></td>
+					<td style="padding: 10px; border: 1px solid #ddd;"
+						th:text="${employee.salary}"></td>
+					<td><a class="btn btn-primary btn-large" data-toggle="modal"
+						data-target=".modal">Update</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="modal fade">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-body"
+				    th:object="${employeeForm}"
+					style="display: flex; align-items: center; margin: 3px; flex-direction: column;">
+
+					<select th:field="*{department}" id="newDep"
+						onchange="cambioTenda(this)"
+						style="padding: 8px; font-size: 14px; border-radius: 4px; border: 1px solid #ddd;">
+						<option value="">Select a new value</option>
+						<option th:each="d : ${departments}" th:value="${d}"
+							th:text="${d}"></option>
+					</select>
+
+					<select th:field="*{location}" id="newLoc"
+						onchange="cambioTenda(this)"
+						style="padding: 8px; font-size: 14px; border-radius: 4px; border: 1px solid #ddd;">
+						<option value="">Select a new value</option>
+						<option th:each="l : ${locations}" th:value="${l}" th:text="${l}"></option>
+					</select>
+
+					<select th:field="*{country}" id="newCoun"
+						onchange="cambioTenda(this)"
+						style="padding: 8px; font-size: 14px; border-radius: 4px; border: 1px solid #ddd;">
+						<option value="">Select a new value</option>
+						<option th:each="c : ${countries}" th:value="${c}" th:text="${c}"></option>
+					</select>
+					
+					<select th:field="*{region}" id="newReg"
+						onchange="cambioTenda(this)"
+						style="padding: 8px; font-size: 14px; border-radius: 4px; border: 1px solid #ddd;">
+						<option value="">Select a new value</option>
+						<option th:each="r : ${regions}" th:value="${r}" th:text="${r}"></option>
+					</select>
+
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal"
+						th:onclick="updateEmployee(*{employee},*{location},*{region},*{country})">Update</a> 
+					<a href="#"	class="btn" data-dismiss="modal">Close</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
